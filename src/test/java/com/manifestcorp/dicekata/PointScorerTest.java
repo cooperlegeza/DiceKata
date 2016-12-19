@@ -56,21 +56,7 @@ public class PointScorerTest {
 		
 		for(int dieFace : inputDie){
 			int numberOfDice = 3;
-			actualScore = this.scorer.scoreNotOnesOrFours(dieFace, numberOfDice);
-			int expectedScore = expectedPoints[dieFace - 1];
-			assertEquals(expectedScore, actualScore);
-		}
-	}
-	
-	@Test
-	public void scoreNotOnesOrFoursTest(){
-		int[] inputDie = {2, 3, 5, 6};
-		int[] expectedPoints = {0, 200, 300, 0, 500, 600};
-		int actualScore;
-		
-		for(int dieFace : inputDie){
-			int numberOfDice = 3;
-			actualScore = this.scorer.scoreNotOnesOrFours(dieFace, numberOfDice);
+			actualScore = this.scorer.scoreOnesOrFours(dieFace, numberOfDice);
 			int expectedScore = expectedPoints[dieFace - 1];
 			assertEquals(expectedScore, actualScore);
 		}

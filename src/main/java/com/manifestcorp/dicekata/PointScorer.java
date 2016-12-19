@@ -27,12 +27,9 @@ public class PointScorer {
 			if(dieFace == 1 || dieFace == 4){
 				points += scoreOnesOrFours(dieFace, numberOfDice);
 			} else {
-				points+= scoreNotOnesOrFours(dieFace, numberOfDice);
-			}
-			
+				points += matchingPoints(dieFace, numberOfDice);
+			}	
 		}
-		
-		
 		
 		return points;
 	}
@@ -46,20 +43,8 @@ public class PointScorer {
 		return numberOfPoints;
 	}
 	
-	int scoreNotOnesOrFours(int dieFace, int numberOfThatDie){
-		int numberOfPoints = 0;
-		numberOfPoints = matchingPoints(dieFace, numberOfThatDie);
-		return numberOfPoints;
-	}
-	
 	int matchingPoints(int dieFace, int numberOfThatDie){
-		int points = 0;
-		
-		if(numberOfThatDie >= 3){
-			points = POINTS_FOR_THREE_OF_A_KINDS.get(dieFace);
-		}
-		
-		return points;
+		return (numberOfThatDie >= 3) ? POINTS_FOR_THREE_OF_A_KINDS.get(dieFace):0;
 	}
 	
 	
