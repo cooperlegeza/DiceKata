@@ -77,4 +77,31 @@ public class PointScorerTest {
 			assertEquals(expectedScore, actualScore);
 		}
 	}
+	
+	@Test
+	public void pointTest(){
+		int dieFace = 0;
+		int numberOfThatDie = 1;
+		int[][] diceAndTotalNumbersOfEach = {
+				{1, 5}, {2, 5}, {3, 5}, {4, 5}, {5, 5}, {6, 5},
+				{1, 4}, {2, 4}, {3, 4}, {4, 4}, {5, 4}, {6, 4},
+				{1, 3}, {2, 3}, {3, 3}, {4, 3}, {5, 3}, {6, 3},
+				{1, 2}, {2, 2}, {3, 2}, {4, 2}, {5, 2}, {6, 2},
+				{1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}, {6, 1}
+		};
+		int[] expectedScores = {
+				1200, 200, 300, 480, 500, 600,
+				1100, 200, 300, 440, 500, 600,
+				1000, 200, 300, 400, 500, 600,
+				200, 0, 0, 80, 0, 0,
+				100, 0, 0, 40, 0, 0
+		};
+		
+		for(int count = 0; count < diceAndTotalNumbersOfEach.length; count++){
+			int actualPoints = this.scorer.points(diceAndTotalNumbersOfEach[count][dieFace],
+					diceAndTotalNumbersOfEach[count][numberOfThatDie]);
+			int expectedPoints = expectedScores[count];
+			assertEquals(expectedPoints, actualPoints);
+		}
+	}
 }

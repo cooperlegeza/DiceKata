@@ -24,11 +24,7 @@ public class PointScorer {
 		for(int dieFace = 1; dieFace <= 6; dieFace++){
 			int numberOfDice = toBeScored.get(dieFace);
 			assert toBeScored.containsKey(dieFace);
-			if(dieFace == 1 || dieFace == 4){
-				points += scoreOnesOrFours(dieFace, numberOfDice);
-			} else {
-				points += matchingPoints(dieFace, numberOfDice);
-			}	
+			points += points(dieFace, numberOfDice);
 		}
 		
 		return points;
@@ -47,6 +43,17 @@ public class PointScorer {
 	
 	int matchingPoints(int dieFace, int numberOfThatDie){
 		return (numberOfThatDie >= 3) ? POINTS_FOR_THREE_OF_A_KINDS.get(dieFace):0;
+	}
+	
+	int points(int dieFace, int numberOfDice){
+		int points = 0;
+		if(dieFace == 1 || dieFace == 4){
+			points += scoreOnesOrFours(dieFace, numberOfDice);
+		} else {
+			points += matchingPoints(dieFace, numberOfDice);
+		}	
+	
+		return points;
 	}
 	
 	

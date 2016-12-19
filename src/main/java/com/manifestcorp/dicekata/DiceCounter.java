@@ -22,10 +22,13 @@ public class DiceCounter {
 		for(int die : diceInput){
 			totalCounts[die - 1]++;
 		}
+		
 		for(int dieFace = 1; dieFace <= 6; dieFace++){
 			dieFaceAndTotalOfEach.put(dieFace, totalCounts[dieFace - 1]);
 		}
 	}
+	
+	
 	
 	
 
