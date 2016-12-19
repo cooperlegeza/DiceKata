@@ -34,6 +34,8 @@ public class PointScorer {
 		return points;
 	}
 	
+	
+	
 	int scoreOnesOrFours(int dieFace, int numberOfThatDie){
 		int numberOfPoints = 0;
 		numberOfPoints += matchingPoints(dieFace, numberOfThatDie);

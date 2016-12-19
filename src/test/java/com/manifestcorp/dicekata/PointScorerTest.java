@@ -42,8 +42,10 @@ public class PointScorerTest {
 		TreeMap<Integer, Integer> dice;
 		for(int count = 0; count < DICE_ARRAYS.length; count++){
 			this.counter.countDice(DICE_ARRAYS[count]);
+			
 			dice = this.counter.getDice();
 			points = this.scorer.score(dice);
+			
 			assertEquals(SCORES_OF_DICE_ARRAYS[count], points);
 		}
 	}
@@ -52,12 +54,14 @@ public class PointScorerTest {
 	public void scoreOnesOrFoursTest(){
 		int[] inputDie = {1, 4};
 		int[] expectedPoints = {1000, 0, 0, 400};
-		int actualScore;
+		int numberOfDice = 3;
 		
+		int actualScore;
 		for(int dieFace : inputDie){
-			int numberOfDice = 3;
+			
 			actualScore = this.scorer.scoreOnesOrFours(dieFace, numberOfDice);
 			int expectedScore = expectedPoints[dieFace - 1];
+			
 			assertEquals(expectedScore, actualScore);
 		}
 	}
@@ -73,5 +77,4 @@ public class PointScorerTest {
 			assertEquals(expectedScore, actualScore);
 		}
 	}
-
 }
