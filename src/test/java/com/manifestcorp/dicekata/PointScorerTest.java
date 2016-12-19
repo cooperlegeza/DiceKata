@@ -50,57 +50,27 @@ public class PointScorerTest {
 	
 	@Test
 	public void scoreOnesOrFoursTest(){
-		for(int onesOrFoursCount = 0; onesOrFoursCount < DICE_ARRAYS.length; onesOrFoursCount++){
-			this.counter.countDice(DICE_ARRAYS[onesOrFoursCount]);
-			TreeMap<Integer, Integer> onesOrFoursDice = this.counter.getDice();
-			int actualScore = scorer.scoreOnesOrFours(onesOrFoursDice);
-			int expectedScore = ONES_OR_FOURS_POINTS_OF_ARRAYS[onesOrFoursCount];
-			assertEquals(expectedScore, actualScore);
-		}
-	}
-	
-	@Test
-	public void scoreOnesOrFoursLogicTest(){
-		int dieFace = 0;
-		int numberOfDice = 1;
-		int[][] dieFaceAndNumberOfDice = {{1, 5}, {4, 5}, {1, 4}, {4, 4},
-		{1, 3}, {4, 3}, {1, 2}, {4, 2}, {1, 1}, {4, 1}, {1, 0}, {4, 0}};
+		int[] inputDie = {1, 4};
+		int[] expectedPoints = {1000, 0, 0, 400};
+		int actualScore;
 		
-		int[] points = {1200, 480, 1100, 440, 1000, 400, 200, 80,
-				100, 40, 0, 0};
-		
-		for(int count = 0; count < dieFaceAndNumberOfDice.length; count++){
-			int[] numbers = dieFaceAndNumberOfDice[count];
-			int actualScore = this.scorer.scoreOnesOrFoursPointsLogic(numbers[dieFace], 
-					numbers[numberOfDice]);
-			int expectedScore = points[count];
+		for(int dieFace : inputDie){
+			int numberOfDice = 3;
+			actualScore = this.scorer.scoreNotOnesOrFours(dieFace, numberOfDice);
+			int expectedScore = expectedPoints[dieFace - 1];
 			assertEquals(expectedScore, actualScore);
 		}
 	}
 	
 	@Test
 	public void scoreNotOnesOrFoursTest(){
-		for(int notOnesOrFoursCount = 0; notOnesOrFoursCount < DICE_ARRAYS.length; notOnesOrFoursCount++){
-			this.counter.countDice(DICE_ARRAYS[notOnesOrFoursCount]);
-			TreeMap<Integer, Integer> notOnesOrFoursDice = this.counter.getDice();
-			int actualScore = scorer.scoreNotOnesOrFours(notOnesOrFoursDice);
-			int expectedScore = NOT_ONES_OR_FOURS_POINTS_OF_ARRAYS[notOnesOrFoursCount];
-			assertTrue(actualScore == expectedScore);
-		}
-	}
-	
-	@Test
-	public void notOnesOrFoursPointsTest(){
-		TreeMap<Integer, Integer> totalsOfEachDie = new TreeMap<Integer, Integer>();
-		for(int count = 1; count <= 6; count++){
-			totalsOfEachDie.put(count, 3);
-		}
-		
+		int[] inputDie = {2, 3, 5, 6};
 		int[] expectedPoints = {0, 200, 300, 0, 500, 600};
 		int actualScore;
 		
-		for(int dieFace = 1; dieFace <= 6; dieFace++){
-			actualScore = this.scorer.notOneOrFourPoints(dieFace, totalsOfEachDie);
+		for(int dieFace : inputDie){
+			int numberOfDice = 3;
+			actualScore = this.scorer.scoreNotOnesOrFours(dieFace, numberOfDice);
 			int expectedScore = expectedPoints[dieFace - 1];
 			assertEquals(expectedScore, actualScore);
 		}
@@ -108,16 +78,14 @@ public class PointScorerTest {
 	
 	@Test
 	public void matchingPointsTest(){
-		int dieFace = 1;
-		int numberOfThatDie = 3;
-		int actualPoints = this.scorer.matchingPoints(dieFace, numberOfThatDie);
-		int expectedPoints = 1000;
-		
-		assertEquals(expectedPoints, actualPoints);
-	}
-	
-	@Test
-	public void matchingPointsTest2(){
+		int[] expectedPoints = {1000, 200, 300, 400, 500, 600};
+		for(int dieFace = 1; dieFace <= 6; dieFace++){
+
+			int actualScore = this.scorer.matchingPoints(dieFace, 3);
+			int expectedScore = expectedPoints[dieFace - 1];
+			
+			assertEquals(expectedScore, actualScore);
+		}
 	}
 
 }

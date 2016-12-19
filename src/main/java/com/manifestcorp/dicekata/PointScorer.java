@@ -20,52 +20,36 @@ public class PointScorer {
 	
 	int score(TreeMap<Integer, Integer> toBeScored){
 		int points = 0;
-		points += scoreOnesOrFours(toBeScored);
-		points += scoreNotOnesOrFours(toBeScored);
 		
-		return points;
-	}
-	
-	int scoreOnesOrFours(TreeMap<Integer, Integer> scoreOnesAndFours){
-		int[] oneAndFour = {1, 4};
-		int numberOfPoints = 0;
-		
-		for(int number : oneAndFour){
-			assert scoreOnesAndFours.containsKey(number);
-			numberOfPoints += scoreOnesOrFoursPointsLogic(number, scoreOnesAndFours.get(number));
-		}
-		
-		return numberOfPoints;
-	}
-	
-	int scoreOnesOrFoursPointsLogic(int number, int numberOfNumber){
-		int numberOfPoints = 0;
-		numberOfPoints += matchingPoints(number, numberOfNumber);
-		numberOfPoints += ((number == 1) ? (numberOfNumber % NUMBER_TO_RECIEVE_MATCHING_STATUS)*POINTS_PER_NON_MATCHING_ONE:
-			(numberOfNumber % NUMBER_TO_RECIEVE_MATCHING_STATUS)*POINTS_PER_NON_MATCHING_THREE);
-		
-		return numberOfPoints;
-	}
-	
-	int scoreNotOnesOrFours(TreeMap<Integer, Integer> scoreNotOnesOrFours){
-		int numberOfPoints = 0;
 		for(int dieFace = 1; dieFace <= 6; dieFace++){
-			assert scoreNotOnesOrFours.containsKey(dieFace);
-			numberOfPoints += notOneOrFourPoints(dieFace, scoreNotOnesOrFours);
+			int numberOfDice = toBeScored.get(dieFace);
+			assert toBeScored.containsKey(dieFace);
+			if(dieFace == 1 || dieFace == 4){
+				points += scoreOnesOrFours(dieFace, numberOfDice);
+			} else {
+				points+= scoreNotOnesOrFours(dieFace, numberOfDice);
+			}
+			
 		}
+		
+		
+		
+		return points;
+	}
+	
+	int scoreOnesOrFours(int dieFace, int numberOfThatDie){
+		int numberOfPoints = 0;
+		numberOfPoints += matchingPoints(dieFace, numberOfThatDie);
+		numberOfPoints += ((dieFace == 1) ? (numberOfThatDie % NUMBER_TO_RECIEVE_MATCHING_STATUS)*POINTS_PER_NON_MATCHING_ONE:
+			(numberOfThatDie % NUMBER_TO_RECIEVE_MATCHING_STATUS)*POINTS_PER_NON_MATCHING_THREE);
 		
 		return numberOfPoints;
 	}
 	
-	int notOneOrFourPoints(int dieFace, TreeMap<Integer, Integer> totalOfEachDie){
-		int points = 0;
-
-		if(dieFace != 1 && dieFace != 4){
-			int numOfDice = totalOfEachDie.get(dieFace);
-			points = matchingPoints(dieFace, numOfDice);
-		}
-		
-		return points;
+	int scoreNotOnesOrFours(int dieFace, int numberOfThatDie){
+		int numberOfPoints = 0;
+		numberOfPoints = matchingPoints(dieFace, numberOfThatDie);
+		return numberOfPoints;
 	}
 	
 	int matchingPoints(int dieFace, int numberOfThatDie){
