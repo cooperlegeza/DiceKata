@@ -88,5 +88,36 @@ public class PointScorerTest {
 			assertTrue(actualScore == expectedScore);
 		}
 	}
+	
+	@Test
+	public void notOnesOrFoursPointsTest(){
+		TreeMap<Integer, Integer> totalsOfEachDie = new TreeMap<Integer, Integer>();
+		for(int count = 1; count <= 6; count++){
+			totalsOfEachDie.put(count, 3);
+		}
+		
+		int[] expectedPoints = {0, 200, 300, 0, 500, 600};
+		int actualScore;
+		
+		for(int dieFace = 1; dieFace <= 6; dieFace++){
+			actualScore = this.scorer.notOneOrFourPoints(dieFace, totalsOfEachDie);
+			int expectedScore = expectedPoints[dieFace - 1];
+			assertEquals(expectedScore, actualScore);
+		}
+	}
+	
+	@Test
+	public void matchingPointsTest(){
+		int dieFace = 1;
+		int numberOfThatDie = 3;
+		int actualPoints = this.scorer.matchingPoints(dieFace, numberOfThatDie);
+		int expectedPoints = 1000;
+		
+		assertEquals(expectedPoints, actualPoints);
+	}
+	
+	@Test
+	public void matchingPointsTest2(){
+	}
 
 }

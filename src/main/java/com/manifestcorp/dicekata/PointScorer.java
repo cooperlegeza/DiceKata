@@ -20,10 +20,8 @@ public class PointScorer {
 	
 	int score(TreeMap<Integer, Integer> toBeScored){
 		int points = 0;
-		for(int dieFace = 1; dieFace <= 6; dieFace++){
-			points += scoreOnesOrFours(toBeScored);
-			points += scoreNotOnesOrFours(toBeScored);
-		}
+		points += scoreOnesOrFours(toBeScored);
+		points += scoreNotOnesOrFours(toBeScored);
 		
 		return points;
 	}
@@ -42,13 +40,9 @@ public class PointScorer {
 	
 	int scoreOnesOrFoursPointsLogic(int number, int numberOfNumber){
 		int numberOfPoints = 0;
-		if(numberOfNumber >= NUMBER_TO_RECIEVE_MATCHING_STATUS){
-			numberOfPoints += ((number == 1) ? 
-					POINTS_FOR_THREE_OF_A_KINDS.get(number) + ((numberOfNumber - NUMBER_TO_RECIEVE_MATCHING_STATUS) * POINTS_PER_NON_MATCHING_ONE):
-						POINTS_FOR_THREE_OF_A_KINDS.get(number) + ((numberOfNumber - NUMBER_TO_RECIEVE_MATCHING_STATUS) * POINTS_PER_NON_MATCHING_THREE));
-		} else {
-			numberOfPoints += ((number == 1) ? numberOfNumber*POINTS_PER_NON_MATCHING_ONE:numberOfNumber*POINTS_PER_NON_MATCHING_THREE);
-		}
+		numberOfPoints += matchingPoints(number, numberOfNumber);
+		numberOfPoints += ((number == 1) ? (numberOfNumber % NUMBER_TO_RECIEVE_MATCHING_STATUS)*POINTS_PER_NON_MATCHING_ONE:
+			(numberOfNumber % NUMBER_TO_RECIEVE_MATCHING_STATUS)*POINTS_PER_NON_MATCHING_THREE);
 		
 		return numberOfPoints;
 	}
@@ -56,16 +50,32 @@ public class PointScorer {
 	int scoreNotOnesOrFours(TreeMap<Integer, Integer> scoreNotOnesOrFours){
 		int numberOfPoints = 0;
 		for(int dieFace = 1; dieFace <= 6; dieFace++){
-			if(dieFace != 1 && dieFace != 4){
-				assert scoreNotOnesOrFours.containsKey(dieFace);
-				int numOfDice = scoreNotOnesOrFours.get(dieFace);
-				if(numOfDice >= NUMBER_TO_RECIEVE_MATCHING_STATUS){
-					numberOfPoints += POINTS_FOR_THREE_OF_A_KINDS.get(dieFace);
-				}
-			}
+			assert scoreNotOnesOrFours.containsKey(dieFace);
+			numberOfPoints += notOneOrFourPoints(dieFace, scoreNotOnesOrFours);
 		}
 		
 		return numberOfPoints;
+	}
+	
+	int notOneOrFourPoints(int dieFace, TreeMap<Integer, Integer> totalOfEachDie){
+		int points = 0;
+
+		if(dieFace != 1 && dieFace != 4){
+			int numOfDice = totalOfEachDie.get(dieFace);
+			points = matchingPoints(dieFace, numOfDice);
+		}
+		
+		return points;
+	}
+	
+	int matchingPoints(int dieFace, int numberOfThatDie){
+		int points = 0;
+		
+		if(numberOfThatDie >= 3){
+			points = POINTS_FOR_THREE_OF_A_KINDS.get(dieFace);
+		}
+		
+		return points;
 	}
 	
 	
