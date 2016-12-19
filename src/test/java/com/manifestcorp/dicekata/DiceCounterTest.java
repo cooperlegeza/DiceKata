@@ -47,9 +47,8 @@ public class DiceCounterTest {
 	
 	@Test
 	public void diceGetterTest(){
-		TreeMap<Integer, Integer> dice = this.diceCounter.getDice();
-		assertEquals(dice.size(), 6);
 		for(int dieFace = 1; dieFace <= 6; dieFace++){
+			TreeMap<Integer, Integer> dice = this.diceCounter.getDice();
 			assertTrue(dice.get(dieFace) == 0);
 		}
 	}

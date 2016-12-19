@@ -27,9 +27,4 @@ public class DiceCounter {
 			dieFaceAndTotalOfEach.put(dieFace, totalCounts[dieFace - 1]);
 		}
 	}
-	
-	
-	
-	
-
 }
