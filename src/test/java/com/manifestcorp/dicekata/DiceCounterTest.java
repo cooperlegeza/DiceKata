@@ -21,8 +21,9 @@ public class DiceCounterTest {
 			{6, 6, 3, 2, 6}, {3, 2, 6, 6, 6},
 			{1, 2, 3, 4, 5}, {1, 1, 1, 2, 2},
 			{5, 4, 5, 4, 5}, {4, 4, 4, 4, 4},
-			{1, 5, 5, 5, 1}};;
-	int [][] ARRAYS_OF_NUM_OF_DICE = {{5, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 2}, 
+			{1, 5, 5, 5, 1}};
+	
+	int [][] ARRAYS_OF_TOTALS_OF_DICE = {{5, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 2}, 
 			{1, 1, 1, 1, 0, 1}, {0, 1, 1, 1, 1, 1}, 
 			{2, 0, 0, 1, 0, 2}, {1, 1, 1, 1, 0, 1},
 			{1, 0, 0, 0, 4, 0}, {0, 0, 5, 0, 0, 0},
@@ -53,10 +54,10 @@ public class DiceCounterTest {
 	public void countDiceTest(){
 		for(int count = 0; count < DICE_ARRAYS.length; count++){
 			diceCounter.countDice(DICE_ARRAYS[count]);
-			TreeMap<Integer, Integer >dice = diceCounter.getDice();
+			TreeMap<Integer, Integer> dice = diceCounter.getDice();
 			assertEquals(dice.size(), 6);
 			for(int dieFace = 1; dieFace <= 6; dieFace++){
-				assertTrue(dice.get(dieFace) == ARRAYS_OF_NUM_OF_DICE[count][dieFace - 1]);
+				assertTrue(dice.get(dieFace) == ARRAYS_OF_TOTALS_OF_DICE[count][dieFace - 1]);
 			}
 		}
 	}

@@ -44,7 +44,7 @@ public class PointScorerTest {
 			this.counter.countDice(DICE_ARRAYS[count]);
 			dice = this.counter.getDice();
 			points = this.scorer.score(dice);
-			assertEquals(points, SCORES_OF_DICE_ARRAYS[count]);
+			assertEquals(SCORES_OF_DICE_ARRAYS[count], points);
 		}
 	}
 	
@@ -55,23 +55,26 @@ public class PointScorerTest {
 			TreeMap<Integer, Integer> onesOrFoursDice = this.counter.getDice();
 			int actualScore = scorer.scoreOnesOrFours(onesOrFoursDice);
 			int expectedScore = ONES_OR_FOURS_POINTS_OF_ARRAYS[onesOrFoursCount];
-			assertTrue(actualScore == expectedScore);
+			assertEquals(expectedScore, actualScore);
 		}
 	}
 	
 	@Test
 	public void scoreOnesOrFoursLogicTest(){
-		int[][] numbersArrays = {{1, 5}, {4, 5}, {1, 4}, {4, 4},
+		int dieFace = 0;
+		int numberOfDice = 1;
+		int[][] dieFaceAndNumberOfDice = {{1, 5}, {4, 5}, {1, 4}, {4, 4},
 		{1, 3}, {4, 3}, {1, 2}, {4, 2}, {1, 1}, {4, 1}, {1, 0}, {4, 0}};
-		int[] arraysPoints = {1200, 480, 1100, 440, 1000, 400, 200, 80,
+		
+		int[] points = {1200, 480, 1100, 440, 1000, 400, 200, 80,
 				100, 40, 0, 0};
 		
-		for(int count = 0; count < numbersArrays.length; count++){
-			int[] numbers = numbersArrays[count];
-			int actualScore = this.scorer.scoreOnesOrFoursPointsLogic(numbers[0], 
-					numbers[1]);
-			int expectedScore = arraysPoints[count];
-			assertTrue(actualScore == expectedScore);
+		for(int count = 0; count < dieFaceAndNumberOfDice.length; count++){
+			int[] numbers = dieFaceAndNumberOfDice[count];
+			int actualScore = this.scorer.scoreOnesOrFoursPointsLogic(numbers[dieFace], 
+					numbers[numberOfDice]);
+			int expectedScore = points[count];
+			assertEquals(expectedScore, actualScore);
 		}
 	}
 	

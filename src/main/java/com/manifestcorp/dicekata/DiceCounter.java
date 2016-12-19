@@ -4,26 +4,26 @@ import java.util.TreeMap;
 
 public class DiceCounter {
 	
-	private TreeMap<Integer, Integer> dice;
+	private TreeMap<Integer, Integer> dieFaceAndTotalOfEach;
 	
 	public DiceCounter(){
-		this.dice = new TreeMap<Integer, Integer>();
+		this.dieFaceAndTotalOfEach = new TreeMap<Integer, Integer>();
 		for(int dieFace = 1; dieFace <= 6; dieFace++){
-			this.dice.put(dieFace, 0);
+			this.dieFaceAndTotalOfEach.put(dieFace, 0);
 		}
 	}
 	
 	public TreeMap<Integer, Integer> getDice(){
-		return this.dice;
+		return this.dieFaceAndTotalOfEach;
 	}
 	
-	public void countDice(int[] diceInputArray){
-		int[] countArray = {0, 0, 0, 0, 0, 0};
-		for(int die : diceInputArray){
-			countArray[die - 1]++;
+	public void countDice(int[] diceInput){
+		int[] totalCounts = {0, 0, 0, 0, 0, 0};
+		for(int die : diceInput){
+			totalCounts[die - 1]++;
 		}
-		for(int count = 1; count <= 6; count++){
-			dice.put(count, countArray[count - 1]);
+		for(int dieFace = 1; dieFace <= 6; dieFace++){
+			dieFaceAndTotalOfEach.put(dieFace, totalCounts[dieFace - 1]);
 		}
 	}
 

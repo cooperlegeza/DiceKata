@@ -18,7 +18,8 @@ public class PointScorer {
 		
 		for(int number : oneAndFour){
 			assert scoreOnesAndFours.containsKey(number);
-			numberOfPoints += scoreOnesOrFoursPointsLogic(number, scoreOnesAndFours.get(number));
+			numberOfPoints += scoreOnesOrFoursPointsLogic(number,
+					scoreOnesAndFours.get(number));
 		}
 		
 		return numberOfPoints;
