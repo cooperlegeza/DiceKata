@@ -4,24 +4,26 @@ import java.util.TreeMap;
 
 public class PointScorer {
 	
-	private TreeMap<Integer, Integer> POINTS_FOR_THREE_OF_A_KINDS;
+	private TreeMap<Integer, Integer> POINTS_FOR_THREE_OF_A_KINDS = new TreeMap<Integer, Integer>();
 	private int POINTS_PER_NON_MATCHING_ONE = 100;
 	private int POINTS_PER_NON_MATCHING_THREE = 40;
 	private int NUMBER_TO_RECIEVE_MATCHING_STATUS = 3;
 	
 	public PointScorer(){
-	}
-	
-	int score(TreeMap<Integer, Integer> toBeScored){
-		int points = 0;
-		points += scoreOnesOrFours(toBeScored);
-		points += scoreNotOnesOrFours(toBeScored);
 		POINTS_FOR_THREE_OF_A_KINDS.put(1, 1000);
 		POINTS_FOR_THREE_OF_A_KINDS.put(2, 200);
 		POINTS_FOR_THREE_OF_A_KINDS.put(3, 300);
 		POINTS_FOR_THREE_OF_A_KINDS.put(4, 400);
 		POINTS_FOR_THREE_OF_A_KINDS.put(5, 500);
 		POINTS_FOR_THREE_OF_A_KINDS.put(6, 600);
+	}
+	
+	int score(TreeMap<Integer, Integer> toBeScored){
+		int points = 0;
+		for(int dieFace = 1; dieFace <= 6; dieFace++){
+			points += scoreOnesOrFours(toBeScored);
+			points += scoreNotOnesOrFours(toBeScored);
+		}
 		
 		return points;
 	}
@@ -58,7 +60,7 @@ public class PointScorer {
 				assert scoreNotOnesOrFours.containsKey(dieFace);
 				int numOfDice = scoreNotOnesOrFours.get(dieFace);
 				if(numOfDice >= NUMBER_TO_RECIEVE_MATCHING_STATUS){
-					numberOfPoints += (100 * dieFace);
+					numberOfPoints += POINTS_FOR_THREE_OF_A_KINDS.get(dieFace);
 				}
 			}
 		}
